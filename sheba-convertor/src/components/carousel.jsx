@@ -4,7 +4,7 @@ import {TiChevronLeftOutline, TiChevronRightOutline} from "react-icons/ti";
 
 const Carousel = ({children}) => {
     const MAX_VISIBILITY = 3;
-    const [active, setActive] = useState(2);
+    const [active, setActive] = useState(1);
     const count = React.Children.count(children);
 
     return (
