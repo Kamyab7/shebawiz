@@ -1,0 +1,21 @@
+{
+  "main": {
+    "shebaConverter": "Sheba Converter",
+    "description": "Conversion of card number and account number to Sheba Bank number"
+  },
+  "details": {
+    "cartToSheba": "Cart to Sheba",
+    "cartToAccount": "Cart to Account",
+    "accountToSheba": "Account to Sheba",
+    "cartNumber": "Cart Number",
+    "accountNumber": "َAccount Number",
+    "cartPlaceholder": "Enter the card number",
+    "accountPlaceholder": "Enter the account number"
+  },
+  "Button": {
+    "shebaButton": "Receive Sheba number",
+    "converting": "Converting ...",
+    "success": "Mission complete",
+    "error": "Unsuccessful operation !"
+  }
+}

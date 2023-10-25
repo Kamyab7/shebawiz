@@ -1,0 +1,21 @@
+{
+  "main": {
+    "shebaConverter": "تبدیلگر شبا",
+    "description": "تبدیل شماره کارت و شماره حساب به شماره شبا بانک ها"
+  },
+  "details": {
+    "cartToSheba": "کارت به شبا",
+    "cartToAccount": "کارت به حساب",
+    "accountToSheba": "حساب به شبا",
+    "cartNumber": "شماره کارت",
+    "accountNumber": "شماره حساب",
+    "cartPlaceholder": "شماره کارت را وارد کنید",
+    "accountPlaceholder": "شماره حساب را وارد کنید"
+  },
+  "Button": {
+    "shebaButton": "دریافت شماره شبا",
+    "converting": "درحال تبدیل ...",
+    "success": "عملیات با موفقیت انجام شد",
+    "error": "عملیات نا موفق !"
+  }
+}
