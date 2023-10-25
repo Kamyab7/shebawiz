@@ -2,6 +2,8 @@ import Card from "../../../components/card.jsx";
 import Carousel from "../../../components/carousel.jsx";
 import ReactiveButton from "reactive-button";
 import {useState} from "react";
+import Lottie from "lottie-react";
+import logo from "@assets/creditcard.json"
 
 
 const MainPage = () => {
@@ -20,6 +22,7 @@ const MainPage = () => {
                 <div className="elementor-image-box-content">
                     <h2 className="elementor-image-box-title">تبدیلگر شبا</h2>
                     <p className="elementor-image-box-description lead">تبدیل شماره کارت و شماره حساب به شماره شبا بانک‌ها</p>
+                    <Lottie animationData={logo} style={{width:'50%',margin: '0px auto'}}></Lottie>
                 </div>
             </div>
             <Carousel>
