@@ -1,4 +1,4 @@
-import './style.css';
+import '../../public/css/styles/style.css';
 export const Card = ({title,content}) => {
     return (
         <div className="card">
