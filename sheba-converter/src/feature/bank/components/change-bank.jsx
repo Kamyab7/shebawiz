@@ -31,7 +31,7 @@ import {useBankContext} from "../../../contexts/bank/bank-context.jsx";
 import BankList from "./bank-list.jsx";
 import '../../../../public/css/styles/bank.css';
 
-const ChangeBank = () => {
+const ChangeBank = ({onBankSelected}) => {
     const banks = [
         {id: 1, name: "انصار", image: ansarBank},
         {id: 2, name: "آینده", image: ayandehBank},
@@ -82,6 +82,7 @@ const ChangeBank = () => {
     const handleBankChange = (newBank) => {
         setBank(newBank);
         setShow(false);
+        onBankSelected(newBank.id);
     };
     return (
         <div className='dropdown'>
