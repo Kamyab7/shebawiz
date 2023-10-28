@@ -27,13 +27,9 @@ const MainPage = () => {
     };
     return (
         <>
-            <div className="main d-flex justify-content-center w-100">
-                <div className="container d-flex flex-column">
                     <div className='text-center mt-7'>
                         <h1 className="h2">تبدیلگر شبا</h1>
-                        <p className="lead">تبدیل شماره کارت و شماره حساب به شماره
-                            شبا
-                            بانک‌ها</p>
+                        <p className="lead">تبدیل شماره کارت و شماره حساب به شماره شبا بانک‌ها</p>
                         <Lottie animationData={logo} style={{width: '50%', margin: '0px auto'}}/>
                     </div>
                     <div className='mb-7 '>
@@ -114,6 +110,7 @@ const MainPage = () => {
                                                     idleText="دریافت شماره شبا"
                                                     loadingText="در حال تبدیل ..."
                                                     successText="عملیات با موفقیت انجام شد"
+                                                    style={{fontSize:13}}
                                                     errorText="عملیات ناموفق !"
                                                     onClick={onClickHandler}
                                                     type='submit'
@@ -125,8 +122,6 @@ const MainPage = () => {
                             ))}
                         </Carousel>
                     </div>
-                </div>
-            </div>
         </>
     )
 }

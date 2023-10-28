@@ -1,7 +1,5 @@
 import React, {useState} from "react";
 import {TiChevronLeftOutline, TiChevronRightOutline} from "react-icons/ti";
-// import './style.css';
-
 const Carousel = ({children}) => {
     const MAX_VISIBILITY = 3;
     const [active, setActive] = useState(1);
