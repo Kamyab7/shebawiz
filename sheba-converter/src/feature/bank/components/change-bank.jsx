@@ -85,12 +85,13 @@ const ChangeBank = ({onBankSelected}) => {
         onBankSelected(newBank.id);
     };
     return (
-        <div className='dropdown'>
+        <div className='dropdow'>
             <a className='nav-flag dropdown-toggle' onClick={() => setShow(true)}>
                 <img src={bank.image} alt={bank.name}/>
             </a>
             <div className={`dropdown-menu dropdown-menu-end custom-scroll ${show ? 'show' : undefined}`}
                  style={{
+                     backgroundColor: '#F8F8F8',
                      textAlign: 'right',
                      maxHeight: '200px',
                      overflowY: "auto",

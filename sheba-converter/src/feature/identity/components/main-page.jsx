@@ -28,7 +28,7 @@ const MainPage = () => {
     };
     return (
         <>
-            <div className='text-center mt-7'>
+            <div className='text-center mt-4'>
                 <h1 className="h2">تبدیلگر شبا</h1>
                 <p className="lead">تبدیل شماره کارت و شماره حساب به شماره شبا بانک‌ها</p>
                 <Lottie animationData={logo} style={{width: '50%', margin: '0px auto'}}/>
