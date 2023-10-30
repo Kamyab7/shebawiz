@@ -7,6 +7,7 @@ import logo from "@assets/creditcard.json";
 import ChangeBank from "../../bank/components/change-bank.jsx";
 import developing from '@assets/developing.json';
 import {useForm} from "react-hook-form";
+import {Converter} from '../../../utilities/converter.ts';
 
 
 const MainPage = () => {
@@ -19,7 +20,9 @@ const MainPage = () => {
         setState('loading');
         setTimeout(() => {
             if (!errors.credit) {
-                console.log(dataWithBankId);
+                var converter = new Converter();
+                var result = converter.AccountNumberToShebaNumber(dataWithBankId.credit,dataWithBankId.selectedBankId);
+                alert(result);
                 setState('success');
             } else {
                 setState('error')
@@ -45,16 +48,16 @@ const MainPage = () => {
                                     <label className="form-label">
                                         {i === 2 ? 'شماره حساب' : 'شماره کارت'}
                                     </label>
-                                    <input {...register(`credit-${i}`, {
+                                    <input {...register(`credit`, {
                                         required: 'شماره کارت وارد نشده است !',
-                                        minLength: 16,
-                                        maxLength: 16,
+                                        minLength: 13,
+                                        maxLength: 13,
                                         // custom validator
-                                        validate: value => {
-                                            if (watch('credit') === null) {
-                                                return 'شماره کارت اشتباه است'
-                                            }
-                                        }
+                                        // validate: value => {
+                                        //     if (watch('credit') === null) {
+                                        //         return 'شماره کارت اشتباه است'
+                                        //     }
+                                        // }
                                         // custom validator
                                     })}
                                            autoComplete="off"
