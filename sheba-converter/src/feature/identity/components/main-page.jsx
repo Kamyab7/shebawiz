@@ -10,15 +10,15 @@ import {useForm} from "react-hook-form";
 
 
 const MainPage = () => {
-    const CARDS = 3;
+    const cards = 3;
     const [selectedBankId, setSelectedBankId] = useState(21);
     const [state, setState] = useState('idle');
     const {register, formState: {errors}, handleSubmit, watch} = useForm();
-    const onClickHandler = (data) => {
-        const dataWithBankId = {...data, selectedBankId};
+    const onClickHandler = (inputName) => {
+        const dataWithBankId = {selectedBankId, [inputName]: watch(inputName)};
         setState('loading');
         setTimeout(() => {
-            if (!errors.credit) {
+            if (!errors[inputName]) {
                 console.log(dataWithBankId);
                 setState('success');
             } else {
@@ -35,53 +35,53 @@ const MainPage = () => {
             </div>
             <div className='mb-7 '>
                 <Carousel>
-                    {[...new Array(CARDS)].map((_, i) => (
+                    {[...new Array(cards)].map((_, i) => (
                         <Card
                             onSubmit={handleSubmit(onClickHandler)}
                             key={i}
-                            title={`${i === 1 ? 'کارت به شبا' : i === 2 ? 'حساب به شبا' : 'کارت به حساب'}`}
+                            title={`${i === 2 ? 'کارت به شبا' : i === 1 ? 'حساب به شبا' : 'کارت به حساب'}`}
                             content={
                                 <div className="mb-3" style={{direction: "rtl"}}>
                                     <label className="form-label">
-                                        {i === 2 ? 'شماره حساب' : 'شماره کارت'}
+                                        {i === 1 ? 'شماره حساب' : 'شماره کارت'}
                                     </label>
-                                    <input {...register(`credit-${i}`, {
+                                    <input  {...register(`credit-${i}`, {
                                         required: 'شماره کارت وارد نشده است !',
-                                        minLength: 16,
-                                        maxLength: 16,
+                                        minLength: i === 1 ? 13 : 16,
+                                        maxLength: i === 1 ? 13 : 16,
                                         // custom validator
                                         validate: value => {
-                                            if (watch('credit') === null) {
+                                            if (watch(`credit-${i}`) === null) {
                                                 return 'شماره کارت اشتباه است'
                                             }
                                         }
                                         // custom validator
                                     })}
-                                           autoComplete="off"
-                                           className={`form-control form-control-lg bg-transparent text-bg-dark ${errors.credit && 'is-invalid'}`}
-                                           placeholder={`${i === 2 ? 'شماره حساب را وارد کنید ' : 'شماره کارت را وارد نمایید  '}`}/>
+                                            autoComplete="off"
+                                            className={`form-control form-control-lg bg-transparent text-bg-dark ${errors[`credit-${i}`] && 'is-invalid'}`}
+                                            placeholder={`${i === 1 ? 'شماره حساب را وارد کنید ' : 'شماره کارت را وارد نمایید  '}`}/>
                                     {
-                                        errors.credit && errors.credit.type === 'required' && (
+                                        errors[`credit-${i}`] && errors[`credit-${i}`].type === 'required' && (
                                             <p className='text-danger small fw-bold mt-1'>
-                                                {errors.credit?.message}
+                                                {errors[`credit-${i}`]?.message}
                                             </p>
                                         )
                                     }{
-                                    errors.credit && (errors.credit.type === 'minLength' || errors.credit.type === 'maxLength') &&
+                                    errors[`credit-${i}`] && (errors[`credit-${i}`].type === 'minLength' || errors[`credit-${i}`].type === 'maxLength') &&
                                     (
                                         <p className='text-danger small fw-bold mt-1'>
                                             شماره کارت صحیح نیست
                                         </p>
                                     )
                                 }{
-                                    errors.credit && errors.credit.type === 'validate' && (
+                                    errors[`credit-${i}`] && errors[`credit-${i}`].type === 'validate' && (
                                         <p className='text-danger small fw-bold mt-1'>
-                                            {errors.credit?.message}
+                                            {errors[`credit-${i}`]?.message}
                                         </p>
                                     )
                                 }
-                                    {i === 2 && <ChangeBank onBankSelected={(bankId) => setSelectedBankId(bankId)}/>}
-                                    {i === 1 || i === 0 ? (
+                                    {i === 1 && <ChangeBank onBankSelected={(bankId) => setSelectedBankId(bankId)}/>}
+                                    {i === 2 || i === 0 ? (
                                         <div
                                             className="cover justify-content-center align-items-center d-flex"
                                             style={{
@@ -94,7 +94,7 @@ const MainPage = () => {
                                                 background: "rgba(0, 0, 0, 0.5)",
                                                 zIndex: 2,
                                             }}>
-                                            <div className='container flex-column text-center mb-lg-7'>
+                                            <div className='container flex-column text-center mb-lg-6'>
                                                 <div className='mb-0'
                                                      style={{width: '50%', margin: '0px auto'}}>
                                                     <Lottie animationData={developing}/>
@@ -113,7 +113,7 @@ const MainPage = () => {
                                             successText="عملیات با موفقیت انجام شد"
                                             style={{fontSize: 13}}
                                             errorText="عملیات ناموفق !"
-                                            onClick={onClickHandler}
+                                            onClick={() => onClickHandler(`credit-${i}`)}
                                             type='submit'
                                         />
                                     </div>
