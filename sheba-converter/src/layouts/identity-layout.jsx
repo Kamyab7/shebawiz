@@ -1,8 +1,11 @@
 import {Outlet} from "react-router-dom";
+import Footer from "./footer.jsx";
+import TopNav from "./top-nav.jsx";
 const IdentityLayout = () => {
     return (
         <>
             <div className='main d-flex justify-content-center w-100'>
+                <TopNav/>
                 <main className='content d-flex p-0'>
                     <div className='container d-flex flex-column'>
                         <div className='row h-100'>
@@ -15,6 +18,7 @@ const IdentityLayout = () => {
                     </div>
                 </main>
             </div>
+            <Footer/>
         </>
     )
 }

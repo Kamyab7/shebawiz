@@ -1,9 +1,9 @@
 import {createContext, useContext, useState} from "react";
-import samanBank from "@assets/bank-iran/saman.png";
+import defaultImage from "@assets/bank-iran/no-img.png";
 
 const BankContext = createContext();
 const BankProvider = ({children}) => {
-    const [bank, setBank] = useState({name:'',image:samanBank});
+    const [bank, setBank] = useState({image:defaultImage});
     return (
         <BankContext.Provider value={{bank, setBank}}>
             {children}

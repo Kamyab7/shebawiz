@@ -5,121 +5,265 @@ import {useState} from "react";
 import Lottie from "lottie-react";
 import logo from "@assets/creditcard.json";
 import ChangeBank from "../../bank/components/change-bank.jsx";
-import developing from '@assets/developing.json';
 import {useForm} from "react-hook-form";
+import DevelopingMode from "../../../components/developing-mode.jsx";
 
 
 const MainPage = () => {
     const cards = 3;
-    const [selectedBankId, setSelectedBankId] = useState(21);
-    const [state, setState] = useState('idle');
-    const {register, formState: {errors}, handleSubmit, watch} = useForm();
-    const onClickHandler = (inputName) => {
+    const [selectedBankId, setSelectedBankId] = useState();
+    const [accountConvert, setAccountConvert] = useState('idle');
+    const [cartConvert, setCartConvert] = useState('idle');
+    const [cartToAccount, setCartToAccount] = useState('idle');
+    const {register,
+        formState: {errors},
+        handleSubmit,
+        watch} = useForm();
+    const {
+        register: registerId2,
+        formState: {errors: errorsId2},
+        handleSubmit: handleSubmitId2,
+        watch: watchId2
+    } = useForm();
+    const {
+        register: registerId,
+        formState: {errors: errorsId},
+        handleSubmit: handleSubmitId,
+        watch: watchId
+    } = useForm();
+    const accountToShebaConvert = (inputName) => {
         const dataWithBankId = {selectedBankId, [inputName]: watch(inputName)};
-        setState('loading');
+        setAccountConvert('loading');
         setTimeout(() => {
-            if (!errors[inputName]) {
+            if (errors[inputName]) {
                 console.log(dataWithBankId);
-                setState('success');
+                setAccountConvert('success');
             } else {
-                setState('error')
+                setAccountConvert('error')
+            }
+        }, 2000);
+    };
+    const cartToShebaConvert = (inputName) => {
+        const data = {[inputName]: watchId2(inputName)};
+        setCartConvert('loading');
+        setTimeout(() => {
+            if (errorsId2[inputName]) {
+                console.log(data);
+                setCartConvert('success');
+            } else {
+                setCartConvert('error')
+            }
+        }, 2000);
+    };
+    const cartToAccountConvert = (inputName) => {
+        const data = {[inputName]: watchId(inputName)};
+        setCartToAccount('loading');
+        setTimeout(() => {
+            if (errorsId[inputName]) {
+                console.log(data);
+                setCartToAccount('success');
+            } else {
+                setCartToAccount('error')
             }
         }, 2000);
     };
     return (
         <>
             <div className='text-center mt-4'>
-                <h1 className="h2">تبدیلگر شبا</h1>
-                <p className="lead">تبدیل شماره کارت و شماره حساب به شماره شبا بانک‌ها</p>
+                <h1 className="h2 fw-bolder">شبــــاویــــز</h1>
+                <p className="text-muted lead fw-bold ">تبدیل رایگان شماره کارت و شماره حساب به شماره شبا بانک‌ها</p>
                 <Lottie animationData={logo} style={{width: '50%', margin: '0px auto'}}/>
             </div>
-            <div className='mb-7 '>
+            <div className='mb-7'>
                 <Carousel>
                     {[...new Array(cards)].map((_, i) => (
-                        <Card
-                            onSubmit={handleSubmit(onClickHandler)}
-                            key={i}
-                            title={`${i === 2 ? 'کارت به شبا' : i === 1 ? 'حساب به شبا' : 'کارت به حساب'}`}
-                            content={
-                                <div className="mb-3" style={{direction: "rtl"}}>
-                                    <label className="form-label">
-                                        {i === 1 ? 'شماره حساب' : 'شماره کارت'}
-                                    </label>
-                                    <input  {...register(`credit-${i}`, {
-                                        required: 'شماره کارت وارد نشده است !',
-                                        minLength: i === 1 ? 13 : 16,
-                                        maxLength: i === 1 ? 13 : 16,
-                                        // custom validator
-                                        validate: value => {
-                                            if (watch(`credit-${i}`) === null) {
-                                                return 'شماره کارت اشتباه است'
+                        i === 1 ? (
+                            <Card
+                                onSubmit={handleSubmit(accountToShebaConvert)}
+                                key={i}
+                                title={'حساب به شبا'}
+                                content={
+                                    <div className='mb-3' style={{direction: 'rtl'}}>
+                                        <label className="form-label">
+                                            شماره حساب
+                                        </label>
+                                        <input  {...register('accountToSheba', {
+                                            required: 'شماره حساب وارد نشده است !',
+                                            minLength: 13,
+                                            maxLength: 13,
+                                            // custom validator
+                                            validate: value => {
+                                                if (watch('accountToSheba') === null) {
+                                                    return 'شماره کارت اشتباه است'
+                                                }
                                             }
-                                        }
-                                        // custom validator
-                                    })}
-                                            autoComplete="off"
-                                            className={`form-control form-control-lg bg-transparent text-bg-dark ${errors[`credit-${i}`] && 'is-invalid'}`}
-                                            placeholder={`${i === 1 ? 'شماره حساب را وارد کنید ' : 'شماره کارت را وارد نمایید  '}`}/>
-                                    {
-                                        errors[`credit-${i}`] && errors[`credit-${i}`].type === 'required' && (
+                                            // custom validator
+                                        })}
+                                                autoComplete="off"
+                                                className={`form-control form-control-lg bg-transparent text-bg-dark ${errors.accountToSheba && 'is-invalid'}`}
+                                                placeholder={'شماره حساب را وارد کنید '}/>
+                                        {
+                                            errors.accountToSheba && errors.accountToSheba.type === 'required' && (
+                                                <p className='text-danger small fw-bold mt-1'>
+                                                    {errors.accountToSheba?.message}
+                                                </p>
+                                            )
+                                        }{
+                                        errors.accountToSheba && (errors.accountToSheba.type === 'minLength' || errors.accountToSheba.type === 'maxLength') &&
+                                        (
                                             <p className='text-danger small fw-bold mt-1'>
-                                                {errors[`credit-${i}`]?.message}
+                                                شماره کارت صحیح نیست
                                             </p>
                                         )
                                     }{
-                                    errors[`credit-${i}`] && (errors[`credit-${i}`].type === 'minLength' || errors[`credit-${i}`].type === 'maxLength') &&
-                                    (
-                                        <p className='text-danger small fw-bold mt-1'>
-                                            شماره کارت صحیح نیست
-                                        </p>
-                                    )
-                                }{
-                                    errors[`credit-${i}`] && errors[`credit-${i}`].type === 'validate' && (
-                                        <p className='text-danger small fw-bold mt-1'>
-                                            {errors[`credit-${i}`]?.message}
-                                        </p>
-                                    )
-                                }
-                                    {i === 1 && <ChangeBank onBankSelected={(bankId) => setSelectedBankId(bankId)}/>}
-                                    {i === 2 || i === 0 ? (
-                                        <div
-                                            className="cover justify-content-center align-items-center d-flex"
-                                            style={{
-                                                position: "absolute",
-                                                borderRadius: '1rem',
-                                                top: 0,
-                                                left: 0,
-                                                width: "100%",
-                                                height: "100%",
-                                                background: "rgba(0, 0, 0, 0.5)",
-                                                zIndex: 2,
-                                            }}>
-                                            <div className='container flex-column text-center mb-lg-6'>
-                                                <div className='mb-0'
-                                                     style={{width: '50%', margin: '0px auto'}}>
-                                                    <Lottie animationData={developing}/>
-                                                </div>
-                                                <span className='fw-bolder text-bg-light bg-transparent h1'>در حال توسعه ...</span>
-                                            </div>
+                                        errors.accountToSheba && errors.accountToSheba.type === 'validate' && (
+                                            <p className='text-danger small fw-bold mt-1'>
+                                                {errors.accountToSheba?.message}
+                                            </p>
+                                        )
+                                    }
+                                        <ChangeBank onBankSelected={(bankId) => setSelectedBankId(bankId)}/>
+                                        <div className='text-center mt-4'>
+                                            <ReactiveButton
+                                                shadow
+                                                rounded
+                                                buttonState={accountConvert}
+                                                idleText="دریافت شماره شبا"
+                                                loadingText="در حال تبدیل ..."
+                                                successText="عملیات با موفقیت انجام شد"
+                                                errorText="عملیات ناموفق !"
+                                                onClick={() => accountToShebaConvert('accountToSheba')}
+                                                type='submit'
+                                            />
                                         </div>
-                                    ) : null}
-                                    <div className='text-center mt-4'>
-                                        <ReactiveButton
-                                            shadow
-                                            rounded
-                                            buttonState={state}
-                                            idleText="دریافت شماره شبا"
-                                            loadingText="در حال تبدیل ..."
-                                            successText="عملیات با موفقیت انجام شد"
-                                            style={{fontSize: 13}}
-                                            errorText="عملیات ناموفق !"
-                                            onClick={() => onClickHandler(`credit-${i}`)}
-                                            type='submit'
-                                        />
                                     </div>
-                                </div>
-                            }
-                        />
+                                }
+                            />
+                        ) : i === 2 ? (
+                            <Card
+                                onSubmit={handleSubmitId2(cartToShebaConvert)}
+                                key={i}
+                                title={'کارت به شبا'}
+                                content={
+                                    <div className='mb-3' style={{direction: 'rtl'}}>
+                                        <label className="form-label">
+                                            شماره کارت
+                                        </label>
+                                        <input  {...registerId2('cartToSheba', {
+                                            required: 'شماره کارت وارد نشده است !',
+                                            minLength: 16,
+                                            maxLength: 16,
+                                            // custom validator
+                                            validate: value => {
+                                                if (watchId2('cartToSheba') === null) {
+                                                    return 'شماره کارت اشتباه است'
+                                                }
+                                            }
+                                            // custom validator
+                                        })}
+                                                autoComplete="off"
+                                                className={`form-control form-control-lg bg-transparent text-bg-dark ${errorsId2.cartToSheba && 'is-invalid'}`}
+                                                placeholder={'شماره حساب را وارد کنید '}/>
+                                        {
+                                            errorsId2.cartToSheba && errorsId2.cartToSheba.type === 'required' && (
+                                                <p className='text-danger small fw-bold mt-1'>
+                                                    {errorsId2.cartToSheba?.message}
+                                                </p>
+                                            )
+                                        }{
+                                        errorsId2.cartToSheba && (errorsId2.cartToSheba.type === 'minLength' || errorsId2.cartToSheba.type === 'maxLength') &&
+                                        (
+                                            <p className='text-danger small fw-bold mt-1'>
+                                                شماره کارت صحیح نیست
+                                            </p>
+                                        )
+                                    }{
+                                        errorsId2.cartToSheba && errorsId2.cartToSheba.type === 'validate' && (
+                                            <p className='text-danger small fw-bold mt-1'>
+                                                {errorsId2.cartToSheba?.message}
+                                            </p>
+                                        )
+                                    }
+                                        <DevelopingMode/>
+                                        <div className='text-center mt-4'>
+                                            <ReactiveButton
+                                                shadow
+                                                rounded
+                                                buttonState={cartConvert}
+                                                idleText="دریافت شماره شبا"
+                                                loadingText="در حال تبدیل ..."
+                                                successText="عملیات با موفقیت انجام شد"
+                                                errorText="عملیات ناموفق !"
+                                                onClick={() => cartToShebaConvert('cartToSheba')}
+                                                type='submit'
+                                            />
+                                        </div>
+                                    </div>
+                                }
+                            />
+                        ) : (
+                            <Card
+                                onSubmit={handleSubmitId(cartToAccountConvert)}
+                                key={i}
+                                title={'کارت به حساب'}
+                                content={
+                                    <div className='mb-3' style={{direction: 'rtl'}}>
+                                        <label className="form-label">
+                                            شماره کارت
+                                        </label>
+                                        <input  {...registerId('cartToAccount', {
+                                            required: 'شماره کارت وارد نشده است !',
+                                            minLength: 16,
+                                            maxLength: 16,
+                                            // custom validator
+                                            validate: value => {
+                                                if (watchId('cartToAccount') === null) {
+                                                    return 'شماره کارت اشتباه است'
+                                                }
+                                            }
+                                            // custom validator
+                                        })}
+                                                autoComplete="off"
+                                                className={`form-control form-control-lg bg-transparent text-bg-dark ${errorsId.cartToAccount && 'is-invalid'}`}
+                                                placeholder={'شماره حساب را وارد کنید '}/>
+                                        {
+                                            errorsId.cartToAccount && errorsId.cartToAccount.type === 'required' && (
+                                                <p className='text-danger small fw-bold mt-1'>
+                                                    {errorsId.cartToAccount?.message}
+                                                </p>
+                                            )
+                                        }{
+                                        errorsId.cartToAccount && (errorsId.cartToAccount.type === 'minLength' || errorsId.cartToAccount.type === 'maxLength') &&
+                                        (
+                                            <p className='text-danger small fw-bold mt-1'>
+                                                شماره کارت صحیح نیست
+                                            </p>
+                                        )
+                                    }{
+                                        errorsId.cartToAccount && errorsId.cartToAccount.type === 'validate' && (
+                                            <p className='text-danger small fw-bold mt-1'>
+                                                {errorsId.cartToAccount?.message}
+                                            </p>
+                                        )
+                                    }
+                                        <DevelopingMode/>
+                                        <div className='text-center mt-4'>
+                                            <ReactiveButton
+                                                shadow
+                                                rounded
+                                                buttonState={cartToAccount}
+                                                idleText="دریافت شماره شبا"
+                                                loadingText="در حال تبدیل ..."
+                                                successText="عملیات با موفقیت انجام شد"
+                                                errorText="عملیات ناموفق !"
+                                                onClick={() => cartToAccountConvert('cartToAccount')}
+                                                type='submit'
+                                            />
+                                        </div>
+                                    </div>
+                                }
+                            />
+                        )
                     ))}
                 </Carousel>
             </div>
