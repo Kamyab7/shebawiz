@@ -1,4 +1,4 @@
-export class Converter {
+export default class Converter {
     
     public AccountNumberToShebaNumber(hesab: string, bank_id: string): string {
         // const Banks: { [key: string]: string } = {

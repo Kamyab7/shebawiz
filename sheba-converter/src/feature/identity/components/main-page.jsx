@@ -7,7 +7,7 @@ import logo from "@assets/creditcard.json";
 import ChangeBank from "../../bank/components/change-bank.jsx";
 import {useForm} from "react-hook-form";
 import DevelopingMode from "../../../components/developing-mode.jsx";
-
+import Converter from "../../../utilities/converter.ts"
 
 const MainPage = () => {
     const cards = 3;
@@ -33,6 +33,9 @@ const MainPage = () => {
     } = useForm();
     const accountToShebaConvert = (inputName) => {
         const dataWithBankId = {selectedBankId, [inputName]: watch(inputName)};
+        var converter=new Converter();
+        var result=converter.AccountNumberToShebaNumber(dataWithBankId.accountToSheba,dataWithBankId.selectedBankId);
+        alert(result);
         setAccountConvert('loading');
         setTimeout(() => {
             if (errors[inputName]) {
