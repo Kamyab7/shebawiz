@@ -20,7 +20,7 @@ const DevelopingMode = () => {
                      style={{width: '50%', margin: '0px auto'}}>
                     <Lottie animationData={developing}/>
                 </div>
-                <span className='fw-bolder text-bg-light bg-transparent h1'>در حال توسعه ...</span>
+                <span className='fw-bolder bg-transparent h1' style={{color:'#FCFCFC'}}>در حال توسعه ...</span>
             </div>
         </div>
     )
