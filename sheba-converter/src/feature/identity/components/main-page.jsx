@@ -9,6 +9,9 @@ import {useForm} from "react-hook-form";
 import DevelopingMode from "../../../components/developing-mode.jsx";
 import Converter from "../../../utilities/converter.ts"
 import Result from "../../../components/result.jsx";
+import {useBankContext} from "../../../contexts/bank/bank-context.jsx";
+import defaultImage from "@assets/bank-iran/no-img.png";
+
 
 const MainPage = () => {
     const cards = 3;
@@ -17,12 +20,19 @@ const MainPage = () => {
     const [cartConvert, setCartConvert] = useState('idle');
     const [cartToAccount, setCartToAccount] = useState('idle');
     const [showResult, setShowResult] = useState(false);
-    const [result,setResult]=useState();
+    const [result, setResult] = useState();
+    const {resetBank, banksData} = useBankContext();
+    const [bankDetails, setBankDetails] = useState({
+        name: "",
+        id: "",
+        image: defaultImage,
+    });
     const {
         register,
         formState: {errors},
         handleSubmit,
-        watch
+        watch,
+        reset
     } = useForm();
     const {
         register: registerCartToSheba,
@@ -36,6 +46,12 @@ const MainPage = () => {
         handleSubmit: handleSubmitCartToAccount,
         watch: watchCartToAccount
     } = useForm();
+    const handleBackToDefault = () => {
+        resetBank();
+        reset();
+        setAccountConvert('idle');
+        setShowResult(false);
+    };
     const accountToShebaConvert = (inputName) => {
         const dataWithBankId = {selectedBankId, [inputName]: watch(inputName)};
         setAccountConvert('loading');
@@ -90,10 +106,14 @@ const MainPage = () => {
                             <Card
                                 onSubmit={handleSubmit(accountToShebaConvert)}
                                 key={i}
-                                title={showResult ? 'شماره شبا':'حساب به شبا'}
+                                title={showResult ? <img src={bankDetails.image} alt={bankDetails.name}
+                                                         style={{width: '50px', height: '50px'}}/> : 'حساب به شبا'}
                                 content={
                                     showResult ? (
-                                        <Result result={result} />
+                                        <Result result={result}
+                                                onBackToDefault={handleBackToDefault}
+                                                bankDetails={bankDetails}
+                                        />
                                     ) : (
                                         <div className='mb-3' style={{direction: 'rtl'}}>
                                             <label className="form-label">
@@ -106,7 +126,7 @@ const MainPage = () => {
                                                 // custom validator
                                                 validate: value => {
                                                     if (watch('accountToSheba') === null) {
-                                                        return 'شماره کارت اشتباه است'
+                                                        return 'شماره حساب اشتباه است'
                                                     }
                                                 }
                                                 // custom validator
@@ -124,7 +144,7 @@ const MainPage = () => {
                                             errors.accountToSheba && (errors.accountToSheba.type === 'minLength' || errors.accountToSheba.type === 'maxLength') &&
                                             (
                                                 <p className='text-danger small fw-bold mt-1'>
-                                                    شماره کارت صحیح نیست
+                                                    شماره حساب صحیح نیست
                                                 </p>
                                             )
                                         }{
@@ -134,7 +154,8 @@ const MainPage = () => {
                                                 </p>
                                             )
                                         }
-                                            <ChangeBank onBankSelected={(bankId) => setSelectedBankId(bankId)}/>
+                                            <ChangeBank onBankSelected={(bankId) => setSelectedBankId(bankId)}
+                                                        setBankDetails={setBankDetails}/>
                                             <div className='text-center mt-4'>
                                                 <ReactiveButton
                                                     shadow
