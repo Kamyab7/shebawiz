@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/sheba-converter.iml" filepath="$PROJECT_DIR$/.idea/sheba-converter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/shebawiz.iml" filepath="$PROJECT_DIR$/.idea/shebawiz.iml" />
     </modules>
   </component>
 </project>
