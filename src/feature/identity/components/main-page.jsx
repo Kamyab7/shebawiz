@@ -121,8 +121,8 @@ const MainPage = () => {
                                             </label>
                                             <input  {...register('accountToSheba', {
                                                 required: 'شماره حساب وارد نشده است !',
-                                                minLength: 13,
-                                                maxLength: 13,
+                                                minLength: 10,
+                                                maxLength: 24,
                                                 // custom validator
                                                 validate: value => {
                                                     if (watch('accountToSheba') === null) {
