@@ -75,11 +75,12 @@ body {
 .nav.left {
     left: 0;
     padding: 0px 0px 0px 0px;
-    transform: translateX(-100%) translatey(-50%);
+    transform: translateX(-20%) translateY(-20%); /* Adjusted transform */
 }
 
 .nav.right {
     right: 0;
-    transform: translateX(100%) translatey(-50%);
+    padding: 0px 0px 0px 0px;
+    transform: translateX(20%) translateY(-20%); /* Adjusted transform */
     /*width: 11rem;*/
 }
