@@ -57,7 +57,7 @@ const MainPage = () => {
         setAccountConvert('loading');
         setTimeout(() => {
             debugger
-            if (!errors[inputName]) {
+            if (!errors[inputName] && selectedBankId != null) {
                 var converter = new Converter();
                 var result = converter.AccountNumberToShebaNumber(dataWithBankId.accountToSheba, dataWithBankId.selectedBankId);
                 setResult(result);
