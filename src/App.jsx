@@ -2,6 +2,8 @@ import {RouterProvider} from "react-router-dom";
 import router from "./router.jsx";
 import {useEffect} from "react";
 import {useAppContext} from "./contexts/app/app-context.jsx";
+import 'react-toastify/dist/ReactToastify.css';
+import {ToastContainer} from "react-toastify";
 
 function App() {
     const {theme} = useAppContext();
@@ -19,7 +21,10 @@ function App() {
         }
     }, [theme]);
     return (
-        <RouterProvider router={router}/>
+        <>
+            <RouterProvider router={router}/>
+            <ToastContainer rtl={true}/>
+        </>
     )
 }
 

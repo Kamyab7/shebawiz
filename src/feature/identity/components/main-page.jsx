@@ -11,6 +11,7 @@ import Converter from "../../../utilities/converter.ts"
 import Result from "../../../components/result.jsx";
 import {useBankContext} from "../../../contexts/bank/bank-context.jsx";
 import defaultImage from "@assets/bank-iran/no-img.png";
+import {toast} from "react-toastify";
 
 
 const MainPage = () => {
@@ -50,6 +51,7 @@ const MainPage = () => {
         resetBank();
         reset();
         setAccountConvert('idle');
+        setSelectedBankId(null);
         setShowResult(false);
     };
     const accountToShebaConvert = (inputName) => {
@@ -64,7 +66,18 @@ const MainPage = () => {
                 setAccountConvert('success');
                 setShowResult(true);
             } else {
-                setAccountConvert('error')
+                setAccountConvert('error');
+                toast.error('بانک مورد نظر انتخاب نشده است !', {
+                    position: "bottom-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    toastId: 'bankError',
+                });
             }
         }, 2000);
     };
