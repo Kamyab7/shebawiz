@@ -67,7 +67,8 @@ const MainPage = () => {
                 setShowResult(true);
             } else {
                 setAccountConvert('error');
-                toast.error('بانک مورد نظر انتخاب نشده است !', {
+                selectedBankId === null ?
+                    toast.error('بانک مورد نظر انتخاب نشده است !', {
                     position: "bottom-center",
                     autoClose: 2000,
                     hideProgressBar: false,
@@ -77,7 +78,10 @@ const MainPage = () => {
                     progress: undefined,
                     theme: "dark",
                     toastId: 'bankError',
-                });
+                })
+                    :
+                    undefined;
+
             }
         }, 2000);
     };
