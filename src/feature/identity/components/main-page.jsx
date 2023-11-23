@@ -67,7 +67,7 @@ const MainPage = () => {
                 setShowResult(true);
             } else {
                 setAccountConvert('error');
-                selectedBankId === null ?
+                selectedBankId === undefined ?
                     toast.error('بانک مورد نظر انتخاب نشده است !', {
                     position: "bottom-center",
                     autoClose: 2000,
