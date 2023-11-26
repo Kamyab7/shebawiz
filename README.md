@@ -1,6 +1,25 @@
 # Shebawiz
 
-Convert Bank Account Number To International Bank Account Number (IBAN) based on ISO13616 standard
+
+
+## Features
+
+- ✅ Convert `Bank Account Number` To `International Bank Account Number (IBAN)` based on `ISO13616` standard.
+
+## Technologies - Libraries
+
+- ✔️ **[`React 18`](https://react.dev/)** - Library for web and native user interfaces
+- ✔️ **[`Vite`](https://vitejs.dev/)** - Local development server written by Evan You
+
+## How to run?
+
+```bash
+npm i
+```
+
+```bash
+npm run dev
+```
 
 ## Resources
 
