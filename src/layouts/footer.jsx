@@ -10,7 +10,7 @@ const Footer = () => {
                     </p>
                         <div>
                             <a href="#"><FaLinkedin /></a>
-                            <a href="#"><FaGithub style={{ marginLeft: '15px' }} /></a>
+                            <a href="https://github.com/Kamyab7/shebawiz.git"><FaGithub style={{ marginLeft: '15px' }} /></a>
                         </div>
                     </div>
                 </div>
