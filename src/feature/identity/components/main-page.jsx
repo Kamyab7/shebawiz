@@ -7,11 +7,12 @@ import logo from "@assets/creditcard.json";
 import ChangeBank from "../../bank/components/change-bank.jsx";
 import {useForm} from "react-hook-form";
 import DevelopingMode from "../../../components/developing-mode.jsx";
-import Converter from "../../../utilities/converter.ts"
 import Result from "../../../components/result.jsx";
 import {useBankContext} from "../../../contexts/bank/bank-context.jsx";
 import defaultImage from "@assets/bank-iran/no-img.png";
 import {toast} from "react-toastify";
+import IBAN from "../../../utilities/Converter.ts";
+import { AccountType } from "../../../utilities/AccountTypes.ts";
 
 
 const MainPage = () => {
@@ -58,13 +59,12 @@ const MainPage = () => {
         const dataWithBankId = {selectedBankId, [inputName]: watch(inputName)};
         setAccountConvert('loading');
         setTimeout(() => {
-            debugger
             if (!errors[inputName] && selectedBankId != null) {
-                var converter = new Converter();
-                var result = converter.AccountNumberToShebaNumber(dataWithBankId.accountToSheba, dataWithBankId.selectedBankId);
-                setResult(result);
-                setAccountConvert('success');
-                setShowResult(true);
+                var result=new IBAN(dataWithBankId.accountToSheba, dataWithBankId.selectedBankId, AccountType.Seporde, "IR");
+                console.log(result.Value);
+                // setResult(result);
+                // setAccountConvert('success');
+                // setShowResult(true);
             } else {
                 setAccountConvert('error');
                 selectedBankId === undefined ?
