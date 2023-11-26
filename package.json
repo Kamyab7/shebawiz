@@ -1,0 +1,41 @@
+{
+  "name": "shebawiz",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "homepage": "https://kamyab7.github.io/shebawiz/",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  },
+  "dependencies": {
+    "framer-motion": "^10.16.4",
+    "i18next": "^23.6.0",
+    "i18next-http-backend": "^2.2.2",
+    "lottie-react": "^2.4.0",
+    "mdb-react-ui-kit": "^6.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.47.0",
+    "react-i18next": "^13.3.1",
+    "react-icons": "^4.11.0",
+    "react-router-dom": "^6.17.0",
+    "react-toastify": "^9.1.3",
+    "reactive-button": "^1.3.15",
+    "swiper": "^11.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@vitejs/plugin-react": "^4.0.3",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "vite": "^4.5.0"
+  }
+}
