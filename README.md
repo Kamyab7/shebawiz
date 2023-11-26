@@ -1,16 +1,17 @@
-# مبدل شماره شبا و شماره حساب
-![React Version](https://img.shields.io/badge/react%20version-%3E=18-61CFDD.svg?&style=for-the-badge)
+# Shebawiz
 
-تبدیل شماره کارت و شماره حساب به شماره شبا بانک ها
-> 
-**🌐 [shebawiz.ir](https://shebawiz.ir/)**
+Convert Bank Account Number To International Bank Account Number (IBAN) based on ISO13616 standard
 
-## ویژگی ها
+## Resources
 
-- ✔️ تبدیل شماره حساب به شبا
-- 🚧 تبدیل شماره کارت به شبا
-- 🚧 تبدیل شماره کارت به حساب
+[ISO13616 document](https://cdn.standards.iteh.ai/samples/81090/ab77d634b898429f99ee4b13ab8ffe8a/ISO-13616-1-2020.pdf)
 
- ## لایسنس
+## Contribution
 
-## منابع
+Contributions are always welcome! Please take a look at the [contribution guidelines](https://github.com/kamyab7/BBANConveter/blob/master/contributing.md) pages first.
+
+Thanks to all [contributors](https://github.com/kamyab7/shebawiz/graphs/contributors), you're awesome, and wouldn't be possible without you!
+
+<a href="https://github.com/kamyab7/shebawiz/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=kamyab7/shebawiz" />
+</a>
