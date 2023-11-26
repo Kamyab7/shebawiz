@@ -8,7 +8,7 @@ Convert Bank Account Number To International Bank Account Number (IBAN) based on
 
 ## Contribution
 
-Contributions are always welcome! Please take a look at the [contribution guidelines](https://github.com/kamyab7/BBANConveter/blob/master/contributing.md) pages first.
+Contributions are always welcome! Please take a look at the [contribution guidelines](https://github.com/kamyab7/shebawiz/blob/master/contributing.md) pages first.
 
 Thanks to all [contributors](https://github.com/kamyab7/shebawiz/graphs/contributors), you're awesome, and wouldn't be possible without you!
 
