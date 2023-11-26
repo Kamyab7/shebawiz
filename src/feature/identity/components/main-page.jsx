@@ -62,9 +62,9 @@ const MainPage = () => {
             if (!errors[inputName] && selectedBankId != null) {
                 var result=new IBAN(dataWithBankId.accountToSheba, dataWithBankId.selectedBankId, AccountType.Seporde, "IR");
                 console.log(result.Value);
-                // setResult(result);
-                // setAccountConvert('success');
-                // setShowResult(true);
+                setResult(result.Value);
+                setAccountConvert('success');
+                setShowResult(true);
             } else {
                 setAccountConvert('error');
                 selectedBankId === undefined ?
