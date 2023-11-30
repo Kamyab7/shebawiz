@@ -12,18 +12,19 @@ import {useBankContext} from "../../../contexts/bank/bank-context.jsx";
 import defaultImage from "@assets/bank-iran/no-img.png";
 import {toast} from "react-toastify";
 import IBAN from "../../../utilities/Converter.ts";
-import { AccountType } from "../../../utilities/AccountTypes.ts";
+import ChangeBankAccountType from "../../bank/components/changeBankAccountType.jsx";
 
 
 const MainPage = () => {
     const cards = 3;
     const [selectedBankId, setSelectedBankId] = useState();
+    const [selectedBankType, setSelectedBankType] = useState();
     const [accountConvert, setAccountConvert] = useState('idle');
     const [cartConvert, setCartConvert] = useState('idle');
     const [cartToAccount, setCartToAccount] = useState('idle');
     const [showResult, setShowResult] = useState(false);
     const [result, setResult] = useState();
-    const {resetBank, banksData} = useBankContext();
+    const {resetBank} = useBankContext();
     const [bankDetails, setBankDetails] = useState({
         name: "",
         id: "",
@@ -53,14 +54,16 @@ const MainPage = () => {
         reset();
         setAccountConvert('idle');
         setSelectedBankId(null);
+        setSelectedBankType(null);
         setShowResult(false);
     };
     const accountToShebaConvert = (inputName) => {
-        const dataWithBankId = {selectedBankId, [inputName]: watch(inputName)};
+        const dataWithBankId = {selectedBankId, selectedBankType, [inputName]: watch(inputName)};
         setAccountConvert('loading');
         setTimeout(() => {
-            if (!errors[inputName] && selectedBankId != null) {
-                var result=new IBAN(dataWithBankId.accountToSheba, dataWithBankId.selectedBankId, AccountType.Seporde, "IR");
+            console.log(dataWithBankId.selectedBankType);
+            if (!errors[inputName] && selectedBankId != null && selectedBankType != null) {
+                var result = new IBAN(dataWithBankId.accountToSheba, dataWithBankId.selectedBankId, dataWithBankId.selectedBankType, "IR");
                 console.log(result.Value);
                 setResult(result.Value);
                 setAccountConvert('success');
@@ -69,18 +72,29 @@ const MainPage = () => {
                 setAccountConvert('error');
                 selectedBankId === undefined ?
                     toast.error('بانک مورد نظر انتخاب نشده است !', {
-                    position: "bottom-center",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                    toastId: 'bankError',
-                })
-                    :
-                    undefined;
+                        position: "bottom-center",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                        toastId: 'bankError',
+                    })
+                    : undefined;
+                selectedBankType === undefined ?
+                    toast.error('نوع حساب انتخاب نشده است !', {
+                        position: "bottom-center",
+                        autoClose: 2000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                        toastId: 'bankTypeError',
+                    }) : undefined;
 
             }
         }, 2000);
@@ -171,8 +185,12 @@ const MainPage = () => {
                                                 </p>
                                             )
                                         }
-                                            <ChangeBank onBankSelected={(bankId) => setSelectedBankId(bankId)}
-                                                        setBankDetails={setBankDetails}/>
+                                            <div className='d-flex justify-content-between'>
+                                                <ChangeBank onBankSelected={(bankId) => setSelectedBankId(bankId)}
+                                                            setBankDetails={setBankDetails}/>
+                                                <ChangeBankAccountType
+                                                    onBankTypeChange={(selectedBankType) => setSelectedBankType(selectedBankType)}/>
+                                            </div>
                                             <div className='text-center mt-4'>
                                                 <ReactiveButton
                                                     shadow
